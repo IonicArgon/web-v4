@@ -1,8 +1,20 @@
+import dynamic from "next/dynamic";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+
+/*
+todo: i've done this before so i want to remind myself now but
+todo: make sure that when i go to inject client-side components
+todo: here that i break it out into separate files so i don't have
+todo: a giant list of dynamic imports in the root layout
+*/
+
+const BubbleBackground = dynamic(
+  () => import("../components/BubbleBackground"),
+);
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <BubbleBackground />
+        {children}
+      </body>
     </html>
   );
 }
