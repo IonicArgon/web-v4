@@ -8,10 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        "retro-brown": "#5e292f",
+        "retro-red": "#ff3036",
+        "retro-orange": "#f55b1d",
+        "retro-yellow": "#e0af46",
+        "retro-tan": "#e3cfaa",
       },
     },
   },

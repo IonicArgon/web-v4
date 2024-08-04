@@ -12,9 +12,9 @@ todo: here that i break it out into separate files so i don't have
 todo: a giant list of dynamic imports in the root layout
 */
 
-const BubbleBackground = dynamic(
-  () => import("../components/BubbleBackground"),
-);
+const CodeBackground = dynamic(() => import("@components/CodeBackground"), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <BubbleBackground />
+        <CodeBackground />
         {children}
       </body>
     </html>
