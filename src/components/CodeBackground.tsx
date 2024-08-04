@@ -88,7 +88,13 @@ const CodeBackground: React.FC = () => {
     }, 10);
 
     return () => clearInterval(typingIntervalId);
-  }, [currentSnippet, currentLine, currentLineIndex, currentCharacterIndex]);
+  }, [
+    currentSnippet,
+    currentLine,
+    currentLineIndex,
+    currentCharacterIndex,
+    addLine,
+  ]);
 
   // this bows the div using a clip path to make it look more like a CRT screen
   useEffect(() => {
