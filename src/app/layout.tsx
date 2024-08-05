@@ -29,6 +29,24 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <noscript>
+          <div className="fixed w-full h-full flex flex-col items-center justify-center">
+            <div>
+              <span className="text-6xl font-bold text-retro-orange">
+                Marco
+              </span>
+              <span className="text-6xl font-bold text-retro-yellow">/Tan</span>
+            </div>
+            <div className="mt-4 flex flex-col text-center">
+              <span className="text-4xl font-bold text-retro-brown">
+                This website requires JavaScript to function properly.
+              </span>
+              <span className="text-4xl font-bold text-retro-brown">
+                Please enable JavaScript in your browser settings.
+              </span>
+            </div>
+          </div>
+        </noscript>
         <ClientSide>{children}</ClientSide>
       </body>
     </html>

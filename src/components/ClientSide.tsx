@@ -38,7 +38,9 @@ const Loading = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setLoadingText((prev) => (prev === "Loading..." ? "Loading" : prev + "."));
+      setLoadingText((prev) =>
+        prev === "Loading..." ? "Loading" : prev + ".",
+      );
     }, 250);
 
     return () => {
@@ -56,6 +58,12 @@ const Loading = () => {
 const ClientSide: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    setIsMobile(isMobile);
+  }, []);
 
   useEffect(() => {
     // simulate loading time for now
@@ -120,8 +128,29 @@ const ClientSide: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         <style>{fadeInAnimation}</style>
         <style>{fadeOutAnimation}</style>
         {isTransitioning ? (
-          <div className={isLoaded ? 'fadeOut' : ''}>
+          <div className={isLoaded ? "fadeOut" : ""}>
             <Loading />
+          </div>
+        ) : isMobile ? (
+          <div className="fadeIn">
+            <div className="fixed w-full h-full flex flex-col items-center justify-center">
+              <div>
+                <span className="text-6xl font-bold text-retro-orange">
+                  Marco
+                </span>
+                <span className="text-6xl font-bold text-retro-yellow">
+                  /Tan
+                </span>
+              </div>
+              <div className="mt-4 flex flex-col text-center space-y-2">
+                <span className="text-4xl font-bold text-retro-brown">
+                  You&apos;re on a mobile browser!
+                </span>
+                <span className="text-xl font-bold text-retro-brown">
+                  My portfolio is best viewed on a desktop browser due to it&apos;s interactive nature.
+                </span>
+              </div>
+            </div>
           </div>
         ) : (
           <div className="fadeIn">

@@ -1,25 +1,39 @@
-"use client";
+import { unified } from "unified";
+import remarkParse from "remark-parse";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
 
-import { Button } from "@headlessui/react";
+import WindowHandler from "@components/Home/WindowHandler";
+import { adminStorage } from "@services/firebaseAdmin";
 
-export default function Home() {
+const PretendFetch = async (path: string) => {
+  "use server";
+
+  const file = adminStorage
+    .bucket("gs://ionicargon-portfolio-website.appspot.com")
+    .file(path);
+  if (!(await file.exists())[0]) {
+    return <div>File not found</div>;
+  }
+
+  const [data] = await file.download();
+  const parsedMarkdown = await unified()
+    .use(remarkParse)
+    .use(remarkRehype)
+    .use(rehypeStringify)
+    .process(data.toString());
+
   return (
-    <main className="fixed w-full h-full flex flex-col items-center justify-center">
-      <div>
-        <span className="text-6xl font-bold text-retro-orange">Marco</span>
-        <span className="text-6xl font-bold text-retro-yellow">/Tan</span>
-      </div>
-      <div className="mt-4 grid grid-cols-3 grid-rows-1 space-x-4">
-        <Button className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out">
-          About Me
-        </Button>
-        <Button className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out">
-          Projects
-        </Button>
-        <Button className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out">
-          Contact
-        </Button>
-      </div>
+    <div dangerouslySetInnerHTML={{ __html: parsedMarkdown.toString() }} />
+  );
+};
+
+const Home = async () => {
+  return (
+    <main>
+      <WindowHandler getMarkdown={PretendFetch} />
     </main>
   );
-}
+};
+
+export default Home;
