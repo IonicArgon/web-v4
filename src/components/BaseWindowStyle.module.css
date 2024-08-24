@@ -1,0 +1,105 @@
+.windowChildren {
+  font-family: "Courier New", Courier, monospace;
+}
+
+.windowChildren::-webkit-scrollbar {
+  margin-right: 2px;
+  width: 8px;
+}
+
+.windowChildren::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.windowChildren::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.windowChildren h1::before {
+  content: "> ";
+}
+
+.windowChildren h1 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.windowChildren h2::before {
+  content: ">> ";
+}
+
+.windowChildren h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.windowChildren h3::before {
+  content: ">>> ";
+}
+
+.windowChildren h3 {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.windowChildren ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.windowChildren ul li::before {
+  content: "• ";
+  color: #888;
+}
+
+.windowChildren ul li {
+  font-size: 1em;
+}
+
+.windowChildren ol {
+  list-style-type: none;
+  padding-left: 0;
+  counter-reset: list-counter;
+}
+
+.windowChildren ol li {
+  font-size: 1em;
+  counter-increment: list-counter;
+}
+
+.windowChildren ol li::before {
+  content: counter(list-counter) ". ";
+}
+
+.windowChildren blockquote {
+  font-size: 1em;
+  margin-left: 5%;
+  border-left: 2px solid #888;
+  padding-left: 5%;
+}
+
+.windowChildren blockquote p {
+  font-size: 1em;
+  text-indent: 0;
+}
+
+.windowChildren hr {
+  border: 0;
+  border-top: 1px solid #888;
+}
+
+.windowChildren a {
+  color: #5e292f;
+  text-decoration: underline;
+}
+
+.windowChildren a:hover {
+  color: #f55b1d;
+  transition: color 0.25s ease-in-out;
+  text-decoration: none;
+}
+
+.windowChildren a::after {
+  content: "☍";
+}

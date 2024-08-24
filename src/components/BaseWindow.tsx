@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@headlessui/react";
 
+import WindowStyles from "@components/BaseWindowStyle.module.css";
+
 interface BaseWindowProps {
   children: React.ReactNode;
   id: string;
@@ -52,8 +54,12 @@ const BaseWindow: React.FC<BaseWindowProps> = ({
   }, [isDragging, offset]);
 
   return (
-    <div className="fixed" style={{ left: position.x, top: position.y }} id={id}>
-      <div className="min-w-96 min-h-96 bg-retro-tan border-2 border-gray-700 rounded-lg shadow-lg">
+    <div
+      className="fixed"
+      style={{ left: position.x, top: position.y }}
+      id={id}
+    >
+      <div className="min-w-[500px] min-h-[400px] max-w-[500px] max-h-[400px] bg-retro-tan border-2 border-gray-700 rounded-lg shadow-lg">
         <div
           className="flex border-b-2 border-b-gray-700 p-2"
           onMouseDown={handleMouseDown}
@@ -69,7 +75,11 @@ const BaseWindow: React.FC<BaseWindowProps> = ({
             X
           </Button>
         </div>
-        <div className="mt-2 p-2">{children}</div>
+        <div
+          className={`p-2 max-h-80 overflow-auto ${WindowStyles.windowChildren}`}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );

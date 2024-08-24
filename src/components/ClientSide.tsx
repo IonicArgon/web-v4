@@ -121,46 +121,43 @@ const ClientSide: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   `;
 
   return (
-    <html lang="en">
-      <body>
-        <audio id="background-typing" src="/typing.mp3" loop></audio>
+    <div>
+      <audio id="background-typing" src="/typing.mp3" loop></audio>
 
-        <style>{fadeInAnimation}</style>
-        <style>{fadeOutAnimation}</style>
-        {isTransitioning ? (
-          <div className={isLoaded ? "fadeOut" : ""}>
-            <Loading />
-          </div>
-        ) : isMobile ? (
-          <div className="fadeIn">
-            <div className="fixed w-full h-full flex flex-col items-center justify-center">
-              <div>
-                <span className="text-6xl font-bold text-retro-orange">
-                  Marco
-                </span>
-                <span className="text-6xl font-bold text-retro-yellow">
-                  /Tan
-                </span>
-              </div>
-              <div className="mt-4 flex flex-col text-center space-y-2">
-                <span className="text-4xl font-bold text-retro-brown">
-                  You&apos;re on a mobile browser!
-                </span>
-                <span className="text-xl font-bold text-retro-brown">
-                  My portfolio is best viewed on a desktop browser due to it&apos;s interactive nature.
-                </span>
-              </div>
+      <style>{fadeInAnimation}</style>
+      <style>{fadeOutAnimation}</style>
+      {isTransitioning ? (
+        <div className={isLoaded ? "fadeOut" : ""}>
+          <Loading />
+        </div>
+      ) : isMobile ? (
+        <div className="fadeIn">
+          <div className="fixed w-full h-full flex flex-col items-center justify-center">
+            <div>
+              <span className="text-6xl font-bold text-retro-orange">
+                Marco
+              </span>
+              <span className="text-6xl font-bold text-retro-yellow">/Tan</span>
+            </div>
+            <div className="mt-4 flex flex-col text-center space-y-2">
+              <span className="text-4xl font-bold text-retro-brown">
+                You&apos;re on a mobile browser!
+              </span>
+              <span className="text-xl font-bold text-retro-brown">
+                My portfolio is best viewed on a desktop browser due to
+                it&apos;s interactive nature.
+              </span>
             </div>
           </div>
-        ) : (
-          <div className="fadeIn">
-            <CodeBackground />
-            {children}
-            <BackgroundAudioToggle />
-          </div>
-        )}
-      </body>
-    </html>
+        </div>
+      ) : (
+        <div className="fadeIn">
+          <CodeBackground />
+          {children}
+          <BackgroundAudioToggle />
+        </div>
+      )}
+    </div>
   );
 };
 

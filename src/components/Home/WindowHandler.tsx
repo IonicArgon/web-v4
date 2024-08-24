@@ -13,9 +13,16 @@ const WindowHandler: React.FC<WindowHandlerProps> = ({ getMarkdown }) => {
   const [windowChildren, setWindowChildren] = useState<
     Record<string, React.ReactNode>
   >({});
+  const [disabledButtons, setDisabledButtons] = useState<
+    Record<string, boolean>
+  >({});
 
-  // todo: prevent clicking button multiple times while window is open,
-  // todo: because it'll pull from firebase regardless and that's not good
+  const handleButtonClick = async (key: string, path: string) => {
+    if (disabledButtons[key]) return;
+    setDisabledButtons({ ...disabledButtons, [key]: true });
+    const data = await getMarkdown(path);
+    setWindowChildren({ ...windowChildren, [key]: data });
+  };
 
   return (
     <div>
@@ -26,21 +33,24 @@ const WindowHandler: React.FC<WindowHandlerProps> = ({ getMarkdown }) => {
         </div>
         <div className="mt-4 grid grid-cols-3 grid-rows-1 space-x-4">
           <Button
-            className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out"
-            onClick={async () => {
-              const data = await getMarkdown("test.md");
-              setWindowChildren({
-                ...windowChildren,
-                about: data,
-              });
-            }}
+            className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-retro-tan disabled:hover:text-retro-brown"
+            onClick={async () => handleButtonClick("about", "test.md")}
+            disabled={disabledButtons["about"]}
           >
             About Me
           </Button>
-          <Button className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out">
+          <Button
+            className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-retro-tan disabled:hover:text-retro-brown"
+            onClick={async () => handleButtonClick("projects", "test.md")}
+            disabled={disabledButtons["projects"]}
+          >
             Projects
           </Button>
-          <Button className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out">
+          <Button
+            className="font-mono min-w-24 bg-retro-tan text-retro-brown p-2 rounded-lg hover:bg-retro-red hover:text-retro-tan transition-colors ease-in-out disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-retro-tan disabled:hover:text-retro-brown"
+            onClick={async () => handleButtonClick("contact", "test.md")}
+            disabled={disabledButtons["contact"]}
+          >
             Contact
           </Button>
         </div>
@@ -56,6 +66,7 @@ const WindowHandler: React.FC<WindowHandlerProps> = ({ getMarkdown }) => {
                 const newWindowChildren = { ...windowChildren };
                 delete newWindowChildren[key];
                 setWindowChildren(newWindowChildren);
+                setDisabledButtons({ ...disabledButtons, [key]: false });
               }}
             >
               {windowChildren[key]}
